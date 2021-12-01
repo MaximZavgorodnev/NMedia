@@ -13,3 +13,51 @@
 .externalNativeBuild
 .cxx
 local.properties
+reserve.md
+HELP.md
+.грэдли
+строить/
+
+### STS ###
+.apt_generated
+.путь к классу
+.путь к фабрике
+.проект
+.настройки
+.Весенние бобы
+.sts4-кэш
+
+### ИДЕЯ IntelliJ ###
+.идея
+*.iws
+*.iml
+*.пис
+из/
+
+### Студия Android ###
+местные.свойства
+захваты/
+.Внешнее построение
+.cxx
+
+### NetBeans ###
+/nbproject/частный/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### ПРОТИВ кода ###
+.vscode/
+
+### Файлы Пакетов ###
+*.банка
+*.война
+*.нар
+*.ухо
+*.zip
+*.tar.gz
+*.rar
+
+### Грэдл ###
+!gradle/wrapper/gradle-wrapper.jar
