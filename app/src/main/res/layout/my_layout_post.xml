@@ -70,11 +70,12 @@
         android:id="@+id/url"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:layout_marginTop="@dimen/common_spacin"
         android:paddingBottom="@dimen/common_spacin"
-        android:ellipsize="end"
         app:layout_constraintTop_toBottomOf="@id/content"
-        tools:text="ссылка на контент" />
+        tools:text="@sample/posts.json/data/url" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/header_barrier2"
