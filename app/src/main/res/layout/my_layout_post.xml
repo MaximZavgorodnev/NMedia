@@ -63,19 +63,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_spacin"
         android:ellipsize="end"
+        android:paddingBottom="@dimen/common_spacin"
+        android:autoLink="web"
         app:layout_constraintTop_toBottomOf="@id/header_barrier"
         tools:text="@sample/posts.json/data/content" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/url"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:layout_marginTop="@dimen/common_spacin"
-        android:paddingBottom="@dimen/common_spacin"
-        app:layout_constraintTop_toBottomOf="@id/content"
-        tools:text="@sample/posts.json/data/url" />
+
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/header_barrier2"
@@ -83,7 +76,7 @@
         android:layout_height="0dp"
         app:barrierDirection="bottom"
         android:layout_marginTop="@dimen/common_spacin"
-        app:constraint_referenced_ids="url" />
+        app:constraint_referenced_ids="content" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/likes"
