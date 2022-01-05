@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.ImageButton
 import androidx.activity.viewModels
 import kotlinx.android.synthetic.main.card_post.*
+import kotlinx.android.synthetic.main.card_post.view.*
 
 import ru.netology.nmedia.adapter.PostAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
@@ -18,10 +19,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val viewModel: PostViewModel by viewModels()
-        val adapter = PostAdapter { viewModel.likeById(it.id) }
-        binding.container.adapter = adapter
+        val adapterLikes = PostAdapter ({ viewModel.likeById(it.id) } , { viewModel.viewById(it.id) } , { viewModel.repostById(it.id) })
+        binding.container.adapter = adapterLikes
         viewModel.data.observe(this) { posts ->
-            adapter.submitList(posts)
+            adapterLikes.submitList(posts)
         }
 
 

@@ -25,7 +25,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likes = 10023,
             avatar = R.drawable.posts_avatars_foreground,
             views = 467,
-            reposts = 991001),
+            reposts = 9910),
         Post(
             id = 3,
             author = "Нетологияю Университете интернет-профессийс будущего",
@@ -35,7 +35,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likes = 10023,
             avatar = R.drawable.posts_avatars_foreground,
             views = 467,
-            reposts = 991001),
+            reposts = 99),
         Post(
             id = 4,
             author = "Нетологияю Университете интернет-профессийс будущего",
@@ -45,7 +45,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likes = 10023,
             avatar = R.drawable.posts_avatars_foreground,
             views = 467,
-            reposts = 991001),
+            reposts = 9),
         Post(
             id = 5,
             author = "Нетологияю Университете интернет-профессийс будущего",
@@ -63,21 +63,22 @@ class PostRepositoryInMemoryImpl : PostRepository {
 
     override fun likeById(id: Long) {
         posts = posts.map {
-            if (it.id != id) it else it.copy(likedByMe = !it.likedByMe)
+            if (it.id != id) it else it.copy(likedByMe = !it.likedByMe, likes = if (it.likedByMe) it.likes - 1 else it.likes + 1)
         }
-//        post = post.copy(likedByMe = !post.likedByMe,
-//            likes = if (post.likedByMe) post.likes - 1 else post.likes + 1
-//        )
         data.value = posts
     }
 
-//    override fun view() {
-//        post = post.copy(views = post.views + 1)
-//        data.value = posts
-//    }
-//
-//    override fun repost() {
-//        post = post.copy(reposts = post.reposts + 1)
-//        data.value = post
-//    }
+    override fun viewById(id: Long) {
+        posts = posts.map{
+            if (it.id != id) it else it.copy(views = it.views + 1)
+        }
+        data.value = posts
+    }
+
+    override fun repostById(id: Long) {
+        posts = posts.map{
+            if (it.id != id) it else it.copy(reposts = it.reposts + 1)
+        }
+        data.value = posts
+    }
 }

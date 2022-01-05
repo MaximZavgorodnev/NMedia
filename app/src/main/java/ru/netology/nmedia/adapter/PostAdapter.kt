@@ -10,13 +10,15 @@ import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.CardPostBinding
 
 typealias LikeCallback = (Post) -> Unit
+typealias ViewCallback = (Post) -> Unit
+typealias RepostCallback = (Post) -> Unit
 
-class PostAdapter(private val likeCallback: LikeCallback) :
+class PostAdapter(private val likeCallback: LikeCallback, private val viewCallback: ViewCallback, private val repostCallback: RepostCallback) :
     ListAdapter<Post, PostViewHolder>(PostDiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PostViewHolder(binding, likeCallback)
+        return PostViewHolder(binding, likeCallback, viewCallback, repostCallback)
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
@@ -27,7 +29,9 @@ class PostAdapter(private val likeCallback: LikeCallback) :
 }
 
 class PostViewHolder(private val binding: CardPostBinding,
-                     private val likeCallback: LikeCallback) :
+                     private val likeCallback: LikeCallback,
+                     private val viewCallback: ViewCallback,
+                     private val repostCallback: RepostCallback) :
     RecyclerView.ViewHolder(binding.root){
     fun bind(post: Post) {
         binding.apply {
@@ -43,15 +47,25 @@ class PostViewHolder(private val binding: CardPostBinding,
             )
             likes.setOnClickListener {
                 likeCallback(post)
-
-//                viewModel.likeById(post.id)
+            }
+            views.setImageResource(
+                if (post.views > 0) R.drawable.ic_remove_red_eye_24 else R.drawable.ic_baseline_remove_red_eye_24
+            )
+            views.setOnClickListener {
+                viewCallback(post)
+            }
+            reposts.setImageResource(
+                if (post.reposts > 0) R.drawable.ic_subdirectory_arrow_right_blue_24 else R.drawable.ic_baseline_subdirectory_arrow_right_24
+            )
+            reposts.setOnClickListener {
+                repostCallback(post)
             }
         }
     }
 
 
 
-    fun correctNumbers(numberLikes1: Int): String {
+    private fun correctNumbers(numberLikes1: Int): String {
         val numberLikes: Double
         val number = when(numberLikes1) {
             in 1000..9_999 -> {
