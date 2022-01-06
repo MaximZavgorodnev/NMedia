@@ -2,6 +2,7 @@ package ru.netology.nmedia.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,13 +13,15 @@ import ru.netology.nmedia.databinding.CardPostBinding
 typealias LikeCallback = (Post) -> Unit
 typealias ViewCallback = (Post) -> Unit
 typealias RepostCallback = (Post) -> Unit
+typealias RemoveCallback = (Post) -> Unit
 
-class PostAdapter(private val likeCallback: LikeCallback, private val viewCallback: ViewCallback, private val repostCallback: RepostCallback) :
+class PostAdapter(private val likeCallback: LikeCallback, private val viewCallback: ViewCallback,
+                  private val repostCallback: RepostCallback, private val removeCallback: RemoveCallback) :
     ListAdapter<Post, PostViewHolder>(PostDiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PostViewHolder(binding, likeCallback, viewCallback, repostCallback)
+        return PostViewHolder(binding, likeCallback, viewCallback, repostCallback, removeCallback)
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
@@ -31,7 +34,8 @@ class PostAdapter(private val likeCallback: LikeCallback, private val viewCallba
 class PostViewHolder(private val binding: CardPostBinding,
                      private val likeCallback: LikeCallback,
                      private val viewCallback: ViewCallback,
-                     private val repostCallback: RepostCallback) :
+                     private val repostCallback: RepostCallback,
+                     private val removeCallback: RemoveCallback) :
     RecyclerView.ViewHolder(binding.root){
     fun bind(post: Post) {
         binding.apply {
@@ -59,6 +63,18 @@ class PostViewHolder(private val binding: CardPostBinding,
             )
             reposts.setOnClickListener {
                 repostCallback(post)
+            }
+
+            menu.setOnClickListener {
+                PopupMenu(it.context, it).apply {
+                    inflate(R.menu.menu_post)
+                    setOnMenuItemClickListener { menuItem ->
+                        when (menuItem.itemId) {
+                            R.id.remove -> removeCallback(post)
+                        }
+                        true
+                    }
+                }.show()
             }
         }
     }
