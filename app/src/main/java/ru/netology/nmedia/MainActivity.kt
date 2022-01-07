@@ -3,6 +3,7 @@ package ru.netology.nmedia
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.activity.viewModels
 import kotlinx.android.synthetic.main.card_post.*
 import kotlinx.android.synthetic.main.card_post.view.*
@@ -26,6 +27,19 @@ class MainActivity : AppCompatActivity() {
         binding.container.adapter = adapterLikes
         viewModel.data.observe(this) { posts ->
             adapterLikes.submitList(posts)
+        }
+
+        binding.save.setOnClickListener {
+            with (binding.content) {
+                val content = text.toString()
+                if (content.isBlank()) {
+                    Toast.makeText(it.context, "ggggggg", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
+                viewModel.changeContent(content)
+                viewModel.save()
+            }
         }
 
     }
