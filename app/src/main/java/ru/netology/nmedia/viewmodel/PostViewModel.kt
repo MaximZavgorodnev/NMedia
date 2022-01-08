@@ -32,6 +32,10 @@ class PostViewModel: ViewModel() {
         edited.value = empty
     }
 
+    fun edit(post: Post){
+        edited.value = post
+    }
+
     fun changeContent(content: String) {
         edited.value?.let {
             val text = content.trim()
@@ -42,7 +46,7 @@ class PostViewModel: ViewModel() {
         }
     }
     fun likeById(id: Long) = repository.likeById(id)
-    fun viewById(id: Long) = repository.viewById(id)
+    fun watchById(id: Long) = repository.watchById(id)
     fun repostById(id: Long) = repository.repostById(id)
     fun removeById(id: Long) = repository.removeById(id)
 }

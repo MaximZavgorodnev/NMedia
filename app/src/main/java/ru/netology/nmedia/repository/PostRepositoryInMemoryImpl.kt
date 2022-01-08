@@ -69,7 +69,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
         data.value = posts
     }
 
-    override fun viewById(id: Long) {
+    override fun watchById(id: Long) {
         posts = posts.map{
             if (it.id != id) it else it.copy(views = it.views + 1)
         }
@@ -91,7 +91,11 @@ class PostRepositoryInMemoryImpl : PostRepository {
     }
 
     override fun save(post: Post) {
-        posts = listOf(post.copy(id = nextId++ , author = "Me", published = "Now")) + posts
-        data.value = posts 
+        if (post.id == 0L) {
+            posts = listOf(post.copy(id = nextId++, author = "Me", published = "Now")) + posts
+        } else {
+            posts = posts.map { if (it.id != post.id) it else it.copy(content = post.content) }
+        }
+        data.value = posts
     }
 }

@@ -10,18 +10,25 @@ import ru.netology.nmedia.Post
 import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.CardPostBinding
 
-typealias LikeCallback = (Post) -> Unit
-typealias ViewCallback = (Post) -> Unit
-typealias RepostCallback = (Post) -> Unit
-typealias RemoveCallback = (Post) -> Unit
+//typealias LikeCallback = (Post) -> Unit
+//typealias ViewCallback = (Post) -> Unit
+//typealias RepostCallback = (Post) -> Unit
+//typealias RemoveCallback = (Post) -> Unit
 
-class PostAdapter(private val likeCallback: LikeCallback, private val viewCallback: ViewCallback,
-                  private val repostCallback: RepostCallback, private val removeCallback: RemoveCallback) :
+interface AdapterCallback {
+    fun onLike(post: Post)
+    fun onWatch(post: Post) // ViewCallback
+    fun onRepost(post: Post)
+    fun onRemove(post: Post)
+    fun onEdit(post: Post)
+}
+
+class PostAdapter(private val callback: AdapterCallback) :
     ListAdapter<Post, PostViewHolder>(PostDiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PostViewHolder(binding, likeCallback, viewCallback, repostCallback, removeCallback)
+        return PostViewHolder(binding, callback)
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
@@ -32,10 +39,7 @@ class PostAdapter(private val likeCallback: LikeCallback, private val viewCallba
 }
 
 class PostViewHolder(private val binding: CardPostBinding,
-                     private val likeCallback: LikeCallback,
-                     private val viewCallback: ViewCallback,
-                     private val repostCallback: RepostCallback,
-                     private val removeCallback: RemoveCallback) :
+                     private val callback: AdapterCallback) :
     RecyclerView.ViewHolder(binding.root){
     fun bind(post: Post) {
         binding.apply {
@@ -50,19 +54,19 @@ class PostViewHolder(private val binding: CardPostBinding,
                 if (post.likedByMe) R.drawable.ic_baseline_favorite_24 else R.drawable.ic_baseline_favorite_border_24
             )
             likes.setOnClickListener {
-                likeCallback(post)
+                callback.onLike(post)
             }
             views.setImageResource(
                 if (post.views > 0) R.drawable.ic_remove_red_eye_24 else R.drawable.ic_baseline_remove_red_eye_24
             )
             views.setOnClickListener {
-                viewCallback(post)
+                callback.onWatch(post)
             }
             reposts.setImageResource(
                 if (post.reposts > 0) R.drawable.ic_subdirectory_arrow_right_blue_24 else R.drawable.ic_baseline_subdirectory_arrow_right_24
             )
             reposts.setOnClickListener {
-                repostCallback(post)
+                callback.onRepost(post)
             }
 
             menu.setOnClickListener {
@@ -70,7 +74,8 @@ class PostViewHolder(private val binding: CardPostBinding,
                     inflate(R.menu.menu_post)
                     setOnMenuItemClickListener { menuItem ->
                         when (menuItem.itemId) {
-                            R.id.remove -> removeCallback(post)
+                            R.id.remove -> callback.onRemove(post)
+                            R.id.edit -> callback.onEdit(post)
                         }
                         true
                     }
