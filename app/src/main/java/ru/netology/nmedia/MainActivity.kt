@@ -2,6 +2,7 @@ package ru.netology.nmedia
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AndroidRuntimeException
 import android.view.View
 import android.widget.ImageButton
 import android.widget.Toast
@@ -77,7 +78,8 @@ class MainActivity : AppCompatActivity() {
                 viewModel.save()
                 setText("")
                 clearFocus()
-//                AndroidUtils.hideKyboard(it)
+
+//                AndroidUtils.hideKeyboard(it)
             }
         }
 
