@@ -2,9 +2,11 @@ package ru.netology.nmedia
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.viewModels
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.card_post.*
 import kotlinx.android.synthetic.main.card_post.view.*
 import ru.netology.nmedia.adapter.AdapterCallback
@@ -56,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.edited.observe(this){
+            group.visibility = View.VISIBLE
             if (it.id != 0L) {
                 binding.content.setText(it.content)
                 binding.content.requestFocus()

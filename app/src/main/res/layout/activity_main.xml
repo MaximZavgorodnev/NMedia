@@ -25,6 +25,65 @@
         app:barrierDirection="top"
         app:constraint_referenced_ids="content, save" />
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="groupBackground, editor, editText, create, repealEdit"/>
+
+    <ImageView
+        android:id="@+id/groupBackground"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        app:srcCompat="@android:drawable/screen_background_light"
+        app:layout_constraintBottom_toTopOf="@id/toolsTop"
+        />
+
+    <TextView
+        android:id="@+id/editor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_spacin"
+        android:ellipsize="end"
+        android:singleLine="true"
+        app:layout_constraintTop_toTopOf="@id/create"
+        app:layout_constraintStart_toEndOf="@id/create"
+        app:layout_constraintEnd_toStartOf="@id/repealEdit"
+        tools:text="@sample/posts.json/data/author"/>
+
+    <TextView
+        android:id="@+id/editText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+        app:layout_constraintBottom_toTopOf="@id/toolsTop"
+        app:layout_constraintStart_toEndOf="@id/create"
+        app:layout_constraintEnd_toStartOf="@id/repealEdit"
+        tools:text="@sample/posts.json/data/author"/>
+
+
+
+    <ImageView
+        android:id="@+id/create"
+        android:layout_width="@dimen/posts_avatar_size"
+        android:layout_height="@dimen/posts_avatar_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/toolsTop"
+        app:srcCompat="@drawable/create_48"/>
+
+    <ImageButton
+        android:id="@+id/repealEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_spacin"
+        android:background="@android:color/transparent"
+        android:padding="4dp"
+        app:layout_constraintBottom_toTopOf="@id/toolsTop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/clear_28" />
+
     <EditText
         android:id="@+id/content"
         android:layout_width="0dp"
@@ -45,11 +104,13 @@
         android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/common_spacin"
         android:background="@android:color/transparent"
         android:padding="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_baseline_check_48" />
+        app:srcCompat="@drawable/ic_baseline_check_48"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
