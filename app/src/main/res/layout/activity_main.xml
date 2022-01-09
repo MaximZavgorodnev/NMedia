@@ -47,6 +47,7 @@
         android:layout_marginStart="@dimen/common_spacin"
         android:ellipsize="end"
         android:singleLine="true"
+        android:hint="@string/edit_message"
         app:layout_constraintTop_toTopOf="@id/create"
         app:layout_constraintStart_toEndOf="@id/create"
         app:layout_constraintEnd_toStartOf="@id/repealEdit"

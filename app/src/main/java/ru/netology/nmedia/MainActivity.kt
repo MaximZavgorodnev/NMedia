@@ -8,6 +8,7 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.viewModels
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.card_post.*
 import kotlinx.android.synthetic.main.card_post.view.*
 import ru.netology.nmedia.adapter.AdapterCallback
@@ -43,6 +44,8 @@ class MainActivity : AppCompatActivity() {
 
             override fun onEdit(post: Post) {
                 viewModel.edit(post)
+                group.visibility = View.VISIBLE
+                editText.text = post.content
             }
 
         })
@@ -59,7 +62,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.edited.observe(this){
-            group.visibility = View.VISIBLE
             if (it.id != 0L) {
                 binding.content.setText(it.content)
                 binding.content.requestFocus()
@@ -68,6 +70,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.save.setOnClickListener {
             with (binding.content) {
+
                 val content = text.toString()
                 if (content.isBlank()) {
                     Toast.makeText(it.context, R.string.error_empty_content, Toast.LENGTH_LONG).show()
@@ -79,9 +82,20 @@ class MainActivity : AppCompatActivity() {
                 setText("")
                 clearFocus()
 
-//                AndroidUtils.hideKeyboard(it)
+//                hideKeyboard(it)
+            }
+            group.visibility = View.GONE
+        }
+
+        binding.repealEdit.setOnClickListener {
+            group.visibility = View.GONE
+            with (binding.content){
+                setText("")
+                clearFocus()
             }
         }
+
+
 
     }
 
