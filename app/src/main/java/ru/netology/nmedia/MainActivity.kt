@@ -2,6 +2,7 @@ package ru.netology.nmedia
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AndroidException
 import android.util.AndroidRuntimeException
 import android.view.View
 import android.widget.ImageButton
@@ -47,7 +48,6 @@ class MainActivity : AppCompatActivity() {
                 group.visibility = View.VISIBLE
                 editText.text = post.content
             }
-
         })
 
 
@@ -70,19 +70,17 @@ class MainActivity : AppCompatActivity() {
 
         binding.save.setOnClickListener {
             with (binding.content) {
-
                 val content = text.toString()
-                if (content.isBlank()) {
+                if (content.isNullOrBlank()) {
+//                    Toast.makeText(this@MainActivity, R.string.error_empty_content, Toast.LENGTH_LONG).show()
                     Toast.makeText(it.context, R.string.error_empty_content, Toast.LENGTH_LONG).show()
                     return@setOnClickListener
                 }
-
                 viewModel.changeContent(content)
                 viewModel.save()
                 setText("")
                 clearFocus()
-
-//                hideKeyboard(it)
+//               AndroidUtils.hideKeyboard(it)
             }
             group.visibility = View.GONE
         }
@@ -94,12 +92,5 @@ class MainActivity : AppCompatActivity() {
                 clearFocus()
             }
         }
-
-
-
     }
-
-
-
-
 }
