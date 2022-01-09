@@ -17,6 +17,7 @@ import ru.netology.nmedia.adapter.AdapterCallback
 import ru.netology.nmedia.adapter.PostAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.databinding.CardPostBinding
+import ru.netology.nmedia.util.AndroidUtils
 import ru.netology.nmedia.viewmodel.PostViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -80,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                 viewModel.save()
                 setText("")
                 clearFocus()
-//               AndroidUtils.hideKeyboard(it)
+                AndroidUtils.hideKeyboard(it)
             }
             group.visibility = View.GONE
         }
