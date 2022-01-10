@@ -46,7 +46,6 @@ class MainActivity : AppCompatActivity() {
 
             override fun onEdit(post: Post) {
                 viewModel.edit(post)
-                group.visibility = View.VISIBLE
                 editText.text = post.content
             }
         })
@@ -64,6 +63,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.edited.observe(this){
             if (it.id != 0L) {
+                group.visibility = View.VISIBLE
                 binding.content.setText(it.content)
                 binding.content.requestFocus()
             }
@@ -73,7 +73,6 @@ class MainActivity : AppCompatActivity() {
             with (binding.content) {
                 val content = text.toString()
                 if (content.isNullOrBlank()) {
-//                    Toast.makeText(this@MainActivity, R.string.error_empty_content, Toast.LENGTH_LONG).show()
                     Toast.makeText(it.context, R.string.error_empty_content, Toast.LENGTH_LONG).show()
                     return@setOnClickListener
                 }
@@ -91,6 +90,7 @@ class MainActivity : AppCompatActivity() {
             with (binding.content){
                 setText("")
                 clearFocus()
+                AndroidUtils.hideKeyboard(it)
             }
         }
     }

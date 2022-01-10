@@ -53,9 +53,7 @@ class PostViewHolder(private val binding: CardPostBinding,
             binding.numberOfLikes.text = correctNumbers(post.likes)
             binding.numberOfViews.text = correctNumbers(post.views)
             binding.numberOfReposts.text = correctNumbers(post.reposts)
-            likes.setImageResource(
-                if (post.likedByMe) R.drawable.ic_baseline_favorite_24 else R.drawable.ic_baseline_favorite_border_24
-            )
+            likes.isChecked = post.likedByMe
             likes.setOnClickListener {
                 callback.onLike(post)
             }
