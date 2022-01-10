@@ -50,22 +50,21 @@ class PostViewHolder(private val binding: CardPostBinding,
             published.text = post.published
             content.text = post.content
             avatar.setImageResource(post.avatar)
-            binding.numberOfLikes.text = correctNumbers(post.likes)
-            binding.numberOfViews.text = correctNumbers(post.views)
-            binding.numberOfReposts.text = correctNumbers(post.reposts)
+//            binding.numberOfViews.text = correctNumbers(post.views)
+//            binding.numberOfReposts.text = correctNumbers(post.reposts)
             likes.isChecked = post.likedByMe
+            likes.text = correctNumbers(post.likes)
             likes.setOnClickListener {
                 callback.onLike(post)
             }
-            views.setImageResource(
-                if (post.views > 0) R.drawable.ic_remove_red_eye_24 else R.drawable.ic_baseline_remove_red_eye_24
-            )
+            views.isChecked = (post.views > 0)
+            views.text = correctNumbers(post.views)
             views.setOnClickListener {
                 callback.onWatch(post)
             }
-            reposts.setImageResource(
-                if (post.reposts > 0) R.drawable.ic_subdirectory_arrow_right_blue_24 else R.drawable.ic_baseline_subdirectory_arrow_right_24
-            )
+
+            reposts.isChecked = (post.reposts > 0)
+            reposts.text = correctNumbers(post.reposts)
             reposts.setOnClickListener {
                 callback.onRepost(post)
             }

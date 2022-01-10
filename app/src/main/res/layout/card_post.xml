@@ -40,12 +40,11 @@
         app:layout_constraintTop_toBottomOf="@id/author"
         tools:text="@sample/posts.json/data/published" />
 
-    <androidx.appcompat.widget.AppCompatImageButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/menu"
-        android:layout_width="wrap_content"
+        android:layout_width="32dp"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:src="@drawable/ic_baseline_more_vert_24"
+        style="@style/Widget.App.MenuChekBox"
         app:layout_constraintBottom_toBottomOf="@id/avatar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/avatar" />
@@ -77,84 +76,47 @@
         android:layout_marginTop="@dimen/common_spacin"
         app:constraint_referenced_ids="content" />
 
-    <com.google.android.material.checkbox.MaterialCheckBox
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/likes"
-        style="style/Widget.App.LikeChekBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:button="@drawable/ic_lice_24dp"
-        app:layout_constraintTop_toBottomOf="@id/header_barrier2" />
+        android:checkable="true"
+        app:layout_constraintTop_toBottomOf="@id/header_barrier2"
+        style="@style/Widget.App.ButtonChekBox"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/number_of_likes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/likes"
-        app:layout_constraintTop_toTopOf="@id/likes"
-        app:layout_constraintBottom_toBottomOf="@id/likes"
-        android:layout_marginStart="@dimen/value_indentation"
-        tools:text="@sample/posts.json/data/number_of_likes" />
 
-    <androidx.appcompat.widget.AppCompatImageButton
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:src="@drawable/ic_baseline_mode_comment_24"
-        android:layout_marginStart="@dimen/common_spacin"
+        style="@style/Widget.App.CommentChekBox"
         app:layout_constraintTop_toBottomOf="@id/header_barrier2"
-        app:layout_constraintStart_toEndOf="@id/number_of_likes"/>
+        app:layout_constraintStart_toEndOf="@id/likes"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/number_of_comment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/comment"
-        app:layout_constraintTop_toTopOf="@id/likes"
-        app:layout_constraintBottom_toBottomOf="@id/likes"
-        android:layout_marginStart="@dimen/value_indentation"
-        tools:text="@sample/posts.json/data/number_of_comments" />
 
-    <androidx.appcompat.widget.AppCompatImageButton
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/reposts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:src="@drawable/ic_baseline_subdirectory_arrow_right_24"
+        style="@style/Widget.App.RepostsChekBox"
         android:layout_marginStart="@dimen/common_spacin"
         app:layout_constraintTop_toBottomOf="@id/header_barrier2"
-        app:layout_constraintStart_toEndOf="@id/number_of_comment"/>
+        app:layout_constraintStart_toEndOf="@id/comment"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/number_of_reposts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/reposts"
-        app:layout_constraintTop_toTopOf="@id/likes"
-        app:layout_constraintBottom_toBottomOf="@id/likes"
-        android:layout_marginStart="@dimen/value_indentation"
-        tools:text="@sample/posts.json/data/number_of_reposts" />
 
-    <androidx.appcompat.widget.AppCompatImageButton
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/views"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:src="@drawable/ic_baseline_remove_red_eye_24"
-        android:layout_marginStart="@dimen/common_spacin"
+        style="@style/Widget.App.ViewsChekBox"
+        android:checkable="true"
         app:layout_constraintTop_toBottomOf="@id/header_barrier2"
-        app:layout_constraintEnd_toStartOf="@id/number_of_views"/>
+        app:layout_constraintStart_toEndOf="@id/reposts"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/number_of_views"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/likes"
-        app:layout_constraintBottom_toBottomOf="@id/likes"
-        android:paddingStart="@dimen/value_indentation"
-        tools:text="@sample/posts.json/data/number_of_views"
-        tools:ignore="RtlSymmetry" />
+
 
 
 

@@ -14,13 +14,17 @@
         <entry key="app/src/main/res/drawable/ic_baseline_remove_red_eye_24.xml" value="0.3707692307692308" />
         <entry key="app/src/main/res/drawable/ic_baseline_reply_24.xml" value="0.21458333333333332" />
         <entry key="app/src/main/res/drawable/ic_baseline_subdirectory_arrow_right_24.xml" value="0.21458333333333332" />
+        <entry key="app/src/main/res/drawable/ic_comment_24dp.xml" value="0.3685185185185185" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.3765625" />
         <entry key="app/src/main/res/drawable/ic_lice_24dp.xml" value="0.3685185185185185" />
+        <entry key="app/src/main/res/drawable/ic_menu_24dp.xml" value="0.3685185185185185" />
         <entry key="app/src/main/res/drawable/ic_remove_red_eye_24.xml" value="0.3707692307692308" />
+        <entry key="app/src/main/res/drawable/ic_reposts_24dp.xml" value="0.3685185185185185" />
         <entry key="app/src/main/res/drawable/ic_subdirectory_arrow_right_blue_24.xml" value="0.3707692307692308" />
+        <entry key="app/src/main/res/drawable/ic_views_24dp.xml" value="0.3685185185185185" />
         <entry key="app/src/main/res/drawable/posts_avatars.xml" value="0.21458333333333332" />
         <entry key="app/src/main/res/drawable/posts_avatars_foreground.xml" value="0.21458333333333332" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.45" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.335" />
         <entry key="app/src/main/res/layout/card_post.xml" value="0.2341485507246377" />
         <entry key="app/src/main/res/layout/my_layout_post.xml" value="0.3292572463768116" />
         <entry key="app/src/main/res/menu/menu_post.xml" value="0.36041666666666666" />
