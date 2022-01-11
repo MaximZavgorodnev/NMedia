@@ -101,6 +101,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/Widget.App.RepostsChekBox"
+        android:checkable="true"
         android:layout_marginStart="@dimen/common_spacin"
         app:layout_constraintTop_toBottomOf="@id/header_barrier2"
         app:layout_constraintStart_toEndOf="@id/comment"/>

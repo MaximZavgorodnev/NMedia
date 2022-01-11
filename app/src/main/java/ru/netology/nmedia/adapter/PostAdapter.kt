@@ -1,9 +1,12 @@
 package ru.netology.nmedia.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.core.content.ContextCompat.startActivity
+
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -13,15 +16,11 @@ import ru.netology.nmedia.Post
 import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.CardPostBinding
 
-//typealias LikeCallback = (Post) -> Unit
-//typealias ViewCallback = (Post) -> Unit
-//typealias RepostCallback = (Post) -> Unit
-//typealias RemoveCallback = (Post) -> Unit
 
 interface AdapterCallback {
     fun onLike(post: Post)
     fun onWatch(post: Post) // ViewCallback
-    fun onRepost(post: Post)
+    fun onShare(post: Post)
     fun onRemove(post: Post)
     fun onEdit(post: Post)
 }
@@ -50,8 +49,6 @@ class PostViewHolder(private val binding: CardPostBinding,
             published.text = post.published
             content.text = post.content
             avatar.setImageResource(post.avatar)
-//            binding.numberOfViews.text = correctNumbers(post.views)
-//            binding.numberOfReposts.text = correctNumbers(post.reposts)
             likes.isChecked = post.likedByMe
             likes.text = correctNumbers(post.likes)
             likes.setOnClickListener {
@@ -66,7 +63,15 @@ class PostViewHolder(private val binding: CardPostBinding,
             reposts.isChecked = (post.reposts > 0)
             reposts.text = correctNumbers(post.reposts)
             reposts.setOnClickListener {
-                callback.onRepost(post)
+                callback.onShare(post)
+                val intent = Intent().apply{
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, post.content)
+                    type = "text/plane"
+                }
+                val chooser = Intent.createChooser(intent, R.string.chooser_share_post.toString())
+//                startActivity()
+
             }
 
             menu.setOnClickListener {

@@ -8,5 +8,6 @@
     <string name="edit_message" translatable="false">Edit Message</string>
     <string name="error_empty_content">Content can\'t be empty</string>
     <string name="post_text">Post Text</string>
+    <string name="chooser_share_post">Share post</string>
 
 </resources>

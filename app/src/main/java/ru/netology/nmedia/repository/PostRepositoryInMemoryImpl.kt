@@ -16,7 +16,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likes = 999,
             avatar = R.drawable.posts_avatars_foreground,
             views = 0,
-            reposts = 998),
+            reposts = 0),
         Post(
             id = nextId++,
             author = "Нетологияю Университете интернет-профессийс будущего",
@@ -76,7 +76,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
         data.value = posts
     }
 
-    override fun repostById(id: Long) {
+    override fun shareById(id: Long) {
         posts = posts.map{
             if (it.id != id) it else it.copy(reposts = it.reposts + 1)
         }

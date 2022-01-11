@@ -36,8 +36,8 @@ class MainActivity : AppCompatActivity() {
                 viewModel.watchById(post.id)
             }
 
-            override fun onRepost(post: Post) {
-                viewModel.repostById(post.id)
+            override fun onShare(post: Post) {
+                viewModel.shareById(post.id)
             }
 
             override fun onRemove(post: Post) {
