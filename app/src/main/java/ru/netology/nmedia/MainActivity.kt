@@ -1,5 +1,6 @@
 package ru.netology.nmedia
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.AndroidException
@@ -7,6 +8,7 @@ import android.util.AndroidRuntimeException
 import android.view.View
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.activity.result.launch
 import androidx.activity.viewModels
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
@@ -27,6 +29,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val viewModel: PostViewModel by viewModels()
+        val newEditPostContract = registerForActivityResult(EditPostContract()) { text ->
+            text?.let {
+                viewModel.changeContent(text.toString())
+                viewModel.save()
+            }
+        }
         val adapter = PostAdapter(object : AdapterCallback{
             override fun onLike(post: Post) {
                 viewModel.likeById(post.id)
@@ -38,6 +46,13 @@ class MainActivity : AppCompatActivity() {
 
             override fun onShare(post: Post) {
                 viewModel.shareById(post.id)
+                val intent = Intent().apply{
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, post.content)
+                    type = "text/plane"
+                }
+                val chooser = Intent.createChooser(intent, R.string.chooser_share_post.toString())
+                startActivity(chooser)
             }
 
             override fun onRemove(post: Post) {
@@ -61,37 +76,41 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.edited.observe(this){
-            if (it.id != 0L) {
-                group.visibility = View.VISIBLE
-                binding.content.setText(it.content)
-                binding.content.requestFocus()
-            }
+//        viewModel.edited.observe(this){
+//            if (it.id != 0L) {
+//                group.visibility = View.VISIBLE
+//                binding.content.setText(it.content)
+//                binding.content.requestFocus()
+//            }
+//        }
+//
+//        binding.save.setOnClickListener {
+//            with (binding.content) {
+//                val content = text.toString()
+//                if (content.isNullOrBlank()) {
+//                    Toast.makeText(it.context, R.string.error_empty_content, Toast.LENGTH_LONG).show()
+//                    return@setOnClickListener
+//                }
+//                viewModel.changeContent(content)
+//                viewModel.save()
+//                setText("")
+//                clearFocus()
+//                AndroidUtils.hideKeyboard(it)
+//            }
+//            group.visibility = View.GONE
+//        }
+//
+//        binding.repealEdit.setOnClickListener {
+//            group.visibility = View.GONE
+//            with (binding.content){
+//                setText("")
+//                clearFocus()
+//                AndroidUtils.hideKeyboard(it)
+//            }
+//        }
+        binding.add.setOnClickListener {
+            newEditPostContract.launch()
         }
 
-        binding.save.setOnClickListener {
-            with (binding.content) {
-                val content = text.toString()
-                if (content.isNullOrBlank()) {
-                    Toast.makeText(it.context, R.string.error_empty_content, Toast.LENGTH_LONG).show()
-                    return@setOnClickListener
-                }
-                viewModel.changeContent(content)
-                viewModel.save()
-                setText("")
-                clearFocus()
-                AndroidUtils.hideKeyboard(it)
-            }
-            group.visibility = View.GONE
-        }
-
-        binding.repealEdit.setOnClickListener {
-            group.visibility = View.GONE
-            with (binding.content){
-                setText("")
-                clearFocus()
-                AndroidUtils.hideKeyboard(it)
-            }
-        }
     }
 }

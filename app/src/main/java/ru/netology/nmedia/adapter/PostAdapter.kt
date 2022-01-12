@@ -64,13 +64,6 @@ class PostViewHolder(private val binding: CardPostBinding,
             reposts.text = correctNumbers(post.reposts)
             reposts.setOnClickListener {
                 callback.onShare(post)
-                val intent = Intent().apply{
-                    action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, post.content)
-                    type = "text/plane"
-                }
-                val chooser = Intent.createChooser(intent, R.string.chooser_share_post.toString())
-//                startActivity()
 
             }
 
