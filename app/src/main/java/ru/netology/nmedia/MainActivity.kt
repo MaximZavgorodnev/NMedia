@@ -3,23 +3,12 @@ package ru.netology.nmedia
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AndroidException
-import android.util.AndroidRuntimeException
-import android.view.View
-import android.widget.ImageButton
-import android.widget.Toast
 import androidx.activity.result.launch
 import androidx.activity.viewModels
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
-import kotlinx.android.synthetic.main.card_post.*
-import kotlinx.android.synthetic.main.card_post.view.*
 import ru.netology.nmedia.adapter.AdapterCallback
-
 import ru.netology.nmedia.adapter.PostAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
-import ru.netology.nmedia.databinding.CardPostBinding
-import ru.netology.nmedia.util.AndroidUtils
 import ru.netology.nmedia.viewmodel.PostViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -29,11 +18,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val viewModel: PostViewModel by viewModels()
-        val newEditPostContract = registerForActivityResult(EditPostContract()) { text ->
-            text?.let {
-                viewModel.changeContent(text.toString())
-                viewModel.save()
-            }
+        val newEditPostLauncher = registerForActivityResult(EditPostContract()) { text ->
+            text ?: return@registerForActivityResult
+            viewModel.changeContent(text.toString())
+            viewModel.save()
+
         }
         val adapter = PostAdapter(object : AdapterCallback{
             override fun onLike(post: Post) {
@@ -109,7 +98,7 @@ class MainActivity : AppCompatActivity() {
 //            }
 //        }
         binding.add.setOnClickListener {
-            newEditPostContract.launch()
+            newEditPostLauncher.launch()
         }
 
     }
