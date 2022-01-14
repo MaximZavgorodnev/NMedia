@@ -38,5 +38,15 @@
         app:layout_anchor="@id/bottomAppBar"
         />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/repealEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:srcCompat="@drawable/clear_28"
+
+
+        />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

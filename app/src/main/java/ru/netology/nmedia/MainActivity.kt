@@ -3,12 +3,15 @@ package ru.netology.nmedia
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.result.launch
 import androidx.activity.viewModels
+import kotlinx.android.synthetic.main.activity_edit_post.*
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.netology.nmedia.adapter.AdapterCallback
 import ru.netology.nmedia.adapter.PostAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
+import ru.netology.nmedia.viewmodel.ChangedPostContract
 import ru.netology.nmedia.viewmodel.PostViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -22,8 +25,14 @@ class MainActivity : AppCompatActivity() {
             text ?: return@registerForActivityResult
             viewModel.changeContent(text.toString())
             viewModel.save()
-
         }
+
+        val newEditPostLauncher2 = registerForActivityResult(ChangedPostContract()) { text ->
+            text ?: return@registerForActivityResult
+            viewModel.changeContent(text.toString())
+            viewModel.save()
+        }
+
         val adapter = PostAdapter(object : AdapterCallback{
             override fun onLike(post: Post) {
                 viewModel.likeById(post.id)
@@ -50,8 +59,8 @@ class MainActivity : AppCompatActivity() {
 
             override fun onEdit(post: Post) {
                 viewModel.edit(post)
-                editText.text = post.content
-            }
+                newEditPostLauncher2.launch(post.content)
+                }
         })
 
 
@@ -65,9 +74,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+
+
 //        viewModel.edited.observe(this){
 //            if (it.id != 0L) {
-//                group.visibility = View.VISIBLE
+//                if (it.content.isBlank()) {
+//
+//                }
+//            val intent = Intent().apply { putExtra(Intent.EXTRA_TEXT, it.content) }
+//            setResult(RESULT_OK, intent)
+
 //                binding.content.setText(it.content)
 //                binding.content.requestFocus()
 //            }
@@ -97,6 +113,7 @@ class MainActivity : AppCompatActivity() {
 //                AndroidUtils.hideKeyboard(it)
 //            }
 //        }
+
         binding.add.setOnClickListener {
             newEditPostLauncher.launch()
         }

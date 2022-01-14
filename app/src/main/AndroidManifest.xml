@@ -11,6 +11,7 @@
         android:theme="@style/Theme.NMedia">
         <activity
             android:name=".EditPostActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
