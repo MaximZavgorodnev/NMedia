@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.App.LikeChekBox" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
+        <item name="buttonTint">@color/like_tint_selector</item>
+    </style>
+
+    <style name="Widget.App.ButtonChekBox" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconTint">@color/like_tint_selector</item>
+        <item name="icon">@drawable/ic_lice_24dp</item>
+        <item name="backgroundTint">@color/white</item>
+    </style>
+
+    <style name="Widget.App.CommentChekBox" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconTint">@color/general_pressing</item>
+        <item name="icon">@drawable/ic_comment_24dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="backgroundTint">@color/white</item>
+    </style>
+
+    <style name="Widget.App.RepostsChekBox" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconTint">@color/general_pressing</item>
+        <item name="icon">@drawable/ic_reposts_24dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="backgroundTint">@color/white</item>
+    </style>
+
+    <style name="Widget.App.ViewsChekBox" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconTint">@color/general_pressing</item>
+        <item name="icon">@drawable/ic_views_24dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="backgroundTint">@color/white</item>
+    </style>
+
+    <style name="Widget.App.MenuChekBox" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconTint">@color/black</item>
+        <item name="icon">@drawable/ic_menu_24dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="backgroundTint">@color/white</item>
+    </style>
+</resources>

@@ -2,4 +2,15 @@
     <string name="app_name">NMedia</string>
     <string name="nmedia">NMedia!</string>
     <string name="Avatar_author" translatable="false">Аватар автора</string>
+    <string name="menu_remove">Remove</string>
+    <string name="menu_edit">Edit</string>
+    <string name="menu_add">Add</string>
+    <string name="edit_message" translatable="false">Edit Message</string>
+    <string name="error_empty_content">Content can\'t be empty</string>
+    <string name="post_text">Post Text</string>
+    <string name="chooser_share_post">Share post</string>
+    <string name="save">Save</string>
+    <string name="repealedit">RepealEdit</string>
+    <string name="video">Video</string>
+
 </resources>
