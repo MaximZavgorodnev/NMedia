@@ -34,8 +34,8 @@ class EditPostActivity : AppCompatActivity() {
             finish()
         }
         binding.repealEdit.setOnClickListener {
-            setResult(RESULT_CANCELED)
             viewModel.repealEdit()
+            setResult(RESULT_OK, intent)
             finish()
         }
     }

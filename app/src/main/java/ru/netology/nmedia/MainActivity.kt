@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
         val viewModel: PostViewModel by viewModels()
         val newEditPostLauncher = registerForActivityResult(EditPostContract()) { text ->
             text ?: return@registerForActivityResult
-            viewModel.changeContent(text.toString())
-            viewModel.save()
+                viewModel.changeContent(text.toString())
+                viewModel.save()
         }
 
         val newEditPostLauncher2 = registerForActivityResult(ChangedPostContract()) { text ->
