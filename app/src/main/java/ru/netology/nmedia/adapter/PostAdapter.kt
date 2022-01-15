@@ -23,6 +23,7 @@ interface AdapterCallback {
     fun onShare(post: Post)
     fun onRemove(post: Post)
     fun onEdit(post: Post)
+    fun onPlayVideo(post: Post)
 }
 
 class PostAdapter(private val callback: AdapterCallback) :
@@ -66,6 +67,9 @@ class PostViewHolder(private val binding: CardPostBinding,
                 callback.onShare(post)
 
             }
+            if (post.video!=null){
+                group.visibility = View.VISIBLE
+            }
 
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {
@@ -79,8 +83,13 @@ class PostViewHolder(private val binding: CardPostBinding,
                     }
                 }.show()
             }
+
+            video.setOnClickListener {
+                callback.onPlayVideo(post)
+            }
         }
     }
+
 
 
 

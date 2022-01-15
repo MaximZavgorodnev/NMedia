@@ -10,5 +10,7 @@
     <string name="post_text">Post Text</string>
     <string name="chooser_share_post">Share post</string>
     <string name="save">Save</string>
+    <string name="repealedit">RepealEdit</string>
+    <string name="video">Video</string>
 
 </resources>

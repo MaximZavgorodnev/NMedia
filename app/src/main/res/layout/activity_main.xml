@@ -35,12 +35,6 @@
 <!--        app:constraint_referenced_ids="content"-->
 <!--        tools:ignore="NotSibling" />-->
 
-<!--    <androidx.constraintlayout.widget.Group-->
-<!--        android:id="@+id/group"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:visibility="visible"-->
-<!--        app:constraint_referenced_ids="groupBackground, editor, editText, create, repealEdit"/>-->
 
 <!--    <ImageView-->
 <!--        android:id="@+id/groupBackground"-->

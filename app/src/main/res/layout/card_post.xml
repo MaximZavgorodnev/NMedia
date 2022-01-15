@@ -56,6 +56,46 @@
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="author, published, menu" />
 
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="video, header_barrier3, backgroundVideo"/>
+
+
+    <ImageView
+        android:id="@+id/backgroundVideo"
+        android:layout_width="310dp"
+        android:layout_height="240dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header_barrier"
+        app:srcCompat="@drawable/img_backg"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/video"
+        android:layout_width="320dp"
+        android:layout_height="240dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:icon="@drawable/ic_play_arrow_48"
+        app:iconGravity="top"
+        android:paddingTop="88dp"
+        android:backgroundTint="#0000"
+        app:layout_constraintTop_toBottomOf="@id/header_barrier"
+        android:contentDescription="@string/video"
+        />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/header_barrier3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:barrierDirection="bottom"
+        android:layout_marginTop="@dimen/common_spacin"
+        app:constraint_referenced_ids="video" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/content"
         android:layout_width="match_parent"
@@ -63,7 +103,7 @@
         android:layout_marginTop="@dimen/common_spacin"
         android:ellipsize="end"
         android:autoLink="web"
-        app:layout_constraintTop_toBottomOf="@id/header_barrier"
+        app:layout_constraintTop_toBottomOf="@id/header_barrier3"
         tools:text="@sample/posts.json/data/content" />
 
 

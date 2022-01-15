@@ -9,4 +9,6 @@
     <string name="menu_add">Добавить пост</string>
     <string name="chooser_share_post">Поделиться постом</string>
     <string name="save">Сохранить</string>
+    <string name="repealedit">RepealEdit</string>
+    <string name="video">Video</string>
 </resources>

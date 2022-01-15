@@ -17,7 +17,8 @@ val empty = Post(
  likes = 0,
  avatar = R.drawable.ic_baseline_check_24,
  views = 0,
- reposts = 0
+ reposts = 0,
+    video = null
 )
 class PostViewModel: ViewModel() {
 

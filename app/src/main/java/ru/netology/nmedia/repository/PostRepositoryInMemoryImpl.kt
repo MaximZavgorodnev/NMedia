@@ -1,5 +1,6 @@
 package ru.netology.nmedia.repository
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.Post
@@ -16,7 +17,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likes = 999,
             avatar = R.drawable.posts_avatars_foreground,
             views = 0,
-            reposts = 0),
+            reposts = 0,
+            video = null),
         Post(
             id = nextId++,
             author = "Нетологияю Университете интернет-профессийс будущего",
@@ -26,7 +28,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likes = 10023,
             avatar = R.drawable.posts_avatars_foreground,
             views = 467,
-            reposts = 9910),
+            reposts = 9910,
+            video = null),
         Post(
             id = nextId++,
             author = "Нетологияю Университете интернет-профессийс будущего",
@@ -36,7 +39,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likes = 10023,
             avatar = R.drawable.posts_avatars_foreground,
             views = 467,
-            reposts = 99),
+            reposts = 99,
+            video = Uri.parse("https://www.youtube.com/watch?v=WhWc3b3KhnY")),
         Post(
             id = nextId++,
             author = "Нетологияю Университете интернет-профессийс будущего",
@@ -46,7 +50,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likes = 1002,
             avatar = R.drawable.posts_avatars_foreground,
             views = 467,
-            reposts = 9),
+            reposts = 9,
+            video = null),
         Post(
             id = nextId++,
             author = "Нетологияю Университете интернет-профессийс будущего",
@@ -56,7 +61,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likes = 999,
             avatar = R.drawable.posts_avatars_foreground,
             views = 0,
-            reposts = 998)
+            reposts = 998,
+            video = null)
     ).reversed()
     private val data = MutableLiveData(posts)
 

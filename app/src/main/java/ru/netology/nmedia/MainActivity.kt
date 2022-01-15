@@ -1,9 +1,11 @@
 package ru.netology.nmedia
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.launch
 import androidx.activity.viewModels
 import kotlinx.android.synthetic.main.activity_edit_post.*
@@ -61,6 +63,14 @@ class MainActivity : AppCompatActivity() {
                 viewModel.edit(post)
                 newEditPostLauncher2.launch(post.content)
                 }
+
+            override fun onPlayVideo(post: Post) {
+                val intent = Intent().apply{
+                    action = Intent.ACTION_VIEW
+                    putExtra(Intent.ACTION_VIEW, post.video)
+                }
+                startActivity(intent)
+            }
         })
 
 
@@ -117,6 +127,5 @@ class MainActivity : AppCompatActivity() {
         binding.add.setOnClickListener {
             newEditPostLauncher.launch()
         }
-
     }
 }
