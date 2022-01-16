@@ -55,4 +55,5 @@ class PostViewModel: ViewModel() {
     fun watchById(id: Long) = repository.watchById(id)
     fun shareById(id: Long) = repository.shareById(id)
     fun removeById(id: Long) = repository.removeById(id)
+    fun videoByID(post: Post) = repository.videoByID(post)
 }
