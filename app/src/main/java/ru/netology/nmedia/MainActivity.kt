@@ -65,11 +65,15 @@ class MainActivity : AppCompatActivity() {
                 }
 
             override fun onPlayVideo(post: Post) {
-                val intent = Intent().apply{
-                    action = Intent.ACTION_VIEW
-                    putExtra(Intent.ACTION_VIEW, post.video)
+                if (post.video != null) {
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.data = post.video
+                    startActivity(intent)
                 }
-                startActivity(intent)
+            }
+
+            override fun videoByID(post: Post): Boolean {
+                return viewModel.videoByID(post)
             }
         })
 
@@ -85,12 +89,15 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
-//        viewModel.edited.observe(this){
+//
+//        viewModel.edited.observe(this) {
 //            if (it.id != 0L) {
 //                if (it.content.isBlank()) {
-//
+//                    newEditPostLauncher2.launch(it.content)
 //                }
+//
+//            }
+//        }
 //            val intent = Intent().apply { putExtra(Intent.EXTRA_TEXT, it.content) }
 //            setResult(RESULT_OK, intent)
 

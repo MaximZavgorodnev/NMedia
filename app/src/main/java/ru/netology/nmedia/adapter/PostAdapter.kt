@@ -24,6 +24,7 @@ interface AdapterCallback {
     fun onRemove(post: Post)
     fun onEdit(post: Post)
     fun onPlayVideo(post: Post)
+    fun videoByID(post: Post) : Boolean
 }
 
 class PostAdapter(private val callback: AdapterCallback) :
@@ -46,6 +47,7 @@ class PostViewHolder(private val binding: CardPostBinding,
     RecyclerView.ViewHolder(binding.root){
     fun bind(post: Post) {
         binding.apply {
+            group.visibility = View.GONE
             author.text = post.author
             published.text = post.published
             content.text = post.content
@@ -67,10 +69,7 @@ class PostViewHolder(private val binding: CardPostBinding,
                 callback.onShare(post)
 
             }
-            if (post.video!=null){
-                group.visibility = View.VISIBLE
-            }
-
+            visible(post)
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {
                     inflate(R.menu.menu_post)
@@ -87,6 +86,12 @@ class PostViewHolder(private val binding: CardPostBinding,
             video.setOnClickListener {
                 callback.onPlayVideo(post)
             }
+        }
+    }
+
+    private fun visible(post: Post){
+        if (callback.videoByID(post)) {
+            binding.group.visibility = View.VISIBLE
         }
     }
 

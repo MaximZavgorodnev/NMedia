@@ -24,7 +24,7 @@ class PostViewModel: ViewModel() {
 
     private val repository: PostRepository = PostRepositoryInMemoryImpl()
     val data: LiveData<List<Post>> = repository.getAll()
-    private val edited = MutableLiveData(empty)
+    val edited = MutableLiveData(empty)
 
     fun save() {
         edited.value?.let {
@@ -55,4 +55,5 @@ class PostViewModel: ViewModel() {
     fun watchById(id: Long) = repository.watchById(id)
     fun shareById(id: Long) = repository.shareById(id)
     fun removeById(id: Long) = repository.removeById(id)
+    fun videoByID(post: Post) = repository.videoByID(post)
 }
