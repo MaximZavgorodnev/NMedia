@@ -89,12 +89,15 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
-//        viewModel.edited.observe(this){
+//
+//        viewModel.edited.observe(this) {
 //            if (it.id != 0L) {
 //                if (it.content.isBlank()) {
-//
+//                    newEditPostLauncher2.launch(it.content)
 //                }
+//
+//            }
+//        }
 //            val intent = Intent().apply { putExtra(Intent.EXTRA_TEXT, it.content) }
 //            setResult(RESULT_OK, intent)
 
