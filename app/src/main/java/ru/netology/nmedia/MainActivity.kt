@@ -65,10 +65,8 @@ class MainActivity : AppCompatActivity() {
                 }
 
             override fun onPlayVideo(post: Post) {
-                val intent = Intent().apply{
-                    action = Intent.ACTION_VIEW
-                    putExtra(Intent.ACTION_VIEW, post.video)
-                }
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = post.video
                 startActivity(intent)
             }
         })
