@@ -61,8 +61,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onEdit(post: Post) {
                 viewModel.edit(post)
-                newEditPostLauncher2.launch(post.content)
-                }
+            }
 
             override fun onPlayVideo(post: Post) {
                 if (post.video != null) {
@@ -87,17 +86,15 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        viewModel.edited.observe(this) {
+            if (it.id != 0L) {
+                    newEditPostLauncher2.launch(it.content)
+            }
+        }
 
-
-//
-//        viewModel.edited.observe(this) {
-//            if (it.id != 0L) {
-//                if (it.content.isBlank()) {
-//                    newEditPostLauncher2.launch(it.content)
-//                }
-//
-//            }
-//        }
+        binding.add.setOnClickListener {
+            newEditPostLauncher.launch()
+        }
 //            val intent = Intent().apply { putExtra(Intent.EXTRA_TEXT, it.content) }
 //            setResult(RESULT_OK, intent)
 
@@ -131,8 +128,6 @@ class MainActivity : AppCompatActivity() {
 //            }
 //        }
 
-        binding.add.setOnClickListener {
-            newEditPostLauncher.launch()
-        }
+
     }
 }

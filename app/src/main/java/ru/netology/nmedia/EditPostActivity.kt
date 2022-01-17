@@ -19,7 +19,6 @@ class EditPostActivity : AppCompatActivity() {
         val binding = ActivityEditPostBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val viewModel: PostViewModel by viewModels()
-
         val text1 = intent.getStringExtra(Intent.EXTRA_TEXT)
         binding.content.setText(text1)
 
