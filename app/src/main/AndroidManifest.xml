@@ -12,11 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NMedia">
         <activity
-            android:name=".EditPostActivity"
+            android:name=".EditPostFragment"
             android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".FeedFragment"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -4,36 +4,30 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.launch
 import androidx.activity.viewModels
-import kotlinx.android.synthetic.main.activity_edit_post.*
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+
 import ru.netology.nmedia.adapter.AdapterCallback
 import ru.netology.nmedia.adapter.PostAdapter
-import ru.netology.nmedia.databinding.ActivityMainBinding
-import ru.netology.nmedia.viewmodel.ChangedPostContract
+import ru.netology.nmedia.databinding.FragmentFeedBinding
 import ru.netology.nmedia.viewmodel.PostViewModel
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+class FeedFragment : Fragment() {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val binding = FragmentFeedBinding.inflate(inflater, container, false)
 
         val viewModel: PostViewModel by viewModels()
-        val newEditPostLauncher = registerForActivityResult(EditPostContract()) { text ->
-            text ?: return@registerForActivityResult
-                viewModel.changeContent(text.toString())
-                viewModel.save()
-        }
-
-        val newEditPostLauncher2 = registerForActivityResult(ChangedPostContract()) { text ->
-            text ?: return@registerForActivityResult
-            viewModel.changeContent(text.toString())
-            viewModel.save()
-        }
 
         val adapter = PostAdapter(object : AdapterCallback{
             override fun onLike(post: Post) {
@@ -78,7 +72,7 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.container.adapter = adapter
-        viewModel.data.observe(this) { posts ->
+        viewModel.data.observe(viewLifecycleOwner) { posts ->
             val newPost = adapter.itemCount < posts.size
             adapter.submitList(posts) {
                 if (newPost) {
@@ -86,15 +80,22 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        viewModel.edited.observe(this) {
+        viewModel.edited.observe(viewLifecycleOwner) {
             if (it.id != 0L) {
-                    newEditPostLauncher2.launch(it.content)
+                findNavController().navigate(R.id.action_feedFragment_to_editPostFragment)
+//                newEditPostLauncher2.launch(it.content)
             }
         }
 
         binding.add.setOnClickListener {
-            newEditPostLauncher.launch()
+            findNavController().navigate(R.id.action_feedFragment_to_editPostFragment)
         }
+
+        return binding.root
+    }
+
+
+
 //            val intent = Intent().apply { putExtra(Intent.EXTRA_TEXT, it.content) }
 //            setResult(RESULT_OK, intent)
 
@@ -129,5 +130,5 @@ class MainActivity : AppCompatActivity() {
 //        }
 
 
-    }
+
 }
