@@ -1,5 +1,6 @@
 package ru.netology.nmedia.adapter
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nmedia.Post
 import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.CardPostBinding
+import ru.netology.nmedia.util.CorrectNumbers
 
 
 interface AdapterCallback {
@@ -49,22 +51,22 @@ class PostViewHolder(private val binding: CardPostBinding,
             content.text = post.content
             avatar.setImageResource(post.avatar)
             likes.isChecked = post.likedByMe
-            likes.text = correctNumbers(post.likes)
+            likes.text = CorrectNumbers.correct(post.likes)
             likes.setOnClickListener {
                 callback.onLike(post)
             }
             views.isChecked = (post.views > 0)
-            views.text = correctNumbers(post.views)
+            views.text = CorrectNumbers.correct(post.views)
             views.setOnClickListener {
                 callback.onWatch(post)
             }
 
             reposts.isChecked = (post.reposts > 0)
-            reposts.text = correctNumbers(post.reposts)
+            reposts.text = CorrectNumbers.correct(post.reposts)
             reposts.setOnClickListener {
                 callback.onShare(post)
-
             }
+
 //            visible(post)
             group.isVisible = post.video != null
             menu.setOnClickListener {
@@ -83,6 +85,9 @@ class PostViewHolder(private val binding: CardPostBinding,
             video.setOnClickListener {
                 callback.onPlayVideo(post)
             }
+
+//            content.setOnClickListener { group.isVisible = true  }
+
         }
     }
 
@@ -94,29 +99,29 @@ class PostViewHolder(private val binding: CardPostBinding,
 
 
 
-
-    private fun correctNumbers(numberLikes1: Int): String {
-        val numberLikes: Double
-        val number = when(numberLikes1) {
-            in 1000..9_999 -> {
-                numberLikes = numberLikes1.toDouble()
-                val tisich = (numberLikes/1000).toInt()
-                val des = ((numberLikes/1000)%1*10).toInt()
-                return "$tisich.$des K"}
-            in 10_000..999_999 ->{
-                numberLikes = numberLikes1.toDouble()
-                val tisich = (numberLikes/1000).toInt()
-                return "$tisich K"
-            }
-            in 1_000_000..9_999_999_999 ->{
-                numberLikes = numberLikes1.toDouble()
-                val mil = (numberLikes/1000000).toInt()
-                val tis = ((numberLikes/1000000)%1*10).toInt()
-                return "$mil.$tis M"}
-            else -> "$numberLikes1"
-        }
-        return number
-    }
+//
+//    private fun correctNumbers(numberLikes1: Int): String {
+//        val numberLikes: Double
+//        val number = when(numberLikes1) {
+//            in 1000..9_999 -> {
+//                numberLikes = numberLikes1.toDouble()
+//                val tisich = (numberLikes/1000).toInt()
+//                val des = ((numberLikes/1000)%1*10).toInt()
+//                return "$tisich.$des K"}
+//            in 10_000..999_999 ->{
+//                numberLikes = numberLikes1.toDouble()
+//                val tisich = (numberLikes/1000).toInt()
+//                return "$tisich K"
+//            }
+//            in 1_000_000..9_999_999_999 ->{
+//                numberLikes = numberLikes1.toDouble()
+//                val mil = (numberLikes/1000000).toInt()
+//                val tis = ((numberLikes/1000000)%1*10).toInt()
+//                return "$mil.$tis M"}
+//            else -> "$numberLikes1"
+//        }
+//        return number
+//    }
 
 }
 

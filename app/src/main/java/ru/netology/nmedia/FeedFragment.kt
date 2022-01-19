@@ -13,6 +13,8 @@ import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import kotlinx.android.synthetic.main.fragment_edit_post.view.*
+import ru.netology.nmedia.EditPostFragment.Companion.textArg
 
 import ru.netology.nmedia.adapter.AdapterCallback
 import ru.netology.nmedia.adapter.PostAdapter
@@ -27,7 +29,7 @@ class FeedFragment : Fragment() {
     ): View {
         val binding = FragmentFeedBinding.inflate(inflater, container, false)
 
-        val viewModel: PostViewModel by viewModels()
+        val viewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
 
         val adapter = PostAdapter(object : AdapterCallback{
             override fun onLike(post: Post) {
@@ -54,6 +56,10 @@ class FeedFragment : Fragment() {
             }
 
             override fun onEdit(post: Post) {
+                arguments?.textArg = post.content
+                Bundle().apply {
+                    textArg = post.content
+                }
                 viewModel.edit(post)
             }
 
@@ -82,8 +88,7 @@ class FeedFragment : Fragment() {
         }
         viewModel.edited.observe(viewLifecycleOwner) {
             if (it.id != 0L) {
-                findNavController().navigate(R.id.action_feedFragment_to_editPostFragment)
-//                newEditPostLauncher2.launch(it.content)
+                findNavController().navigate(R.id.action_feedFragment_to_editPostFragment, Bundle().apply { textArg = it.content })
             }
         }
 
@@ -91,6 +96,9 @@ class FeedFragment : Fragment() {
             findNavController().navigate(R.id.action_feedFragment_to_editPostFragment)
         }
 
+//        binding.container.content.setOnClickListener {
+//            findNavController().navigate(R.id.action_feedFragment_to_openPostFragment)
+//        }
         return binding.root
     }
 

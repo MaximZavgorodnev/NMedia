@@ -15,6 +15,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 
 import kotlinx.android.synthetic.main.fragment_edit_post.view.*
+import ru.netology.nmedia.databinding.FragmentEditPostBinding
 import ru.netology.nmedia.databinding.FragmentFeedBinding
 import ru.netology.nmedia.util.AndroidUtils
 import ru.netology.nmedia.util.StringArg
@@ -28,25 +29,22 @@ class EditPostFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentFeedBinding.inflate(inflater, container, false)
+        val binding = FragmentEditPostBinding.inflate(inflater, container, false)
+        arguments?.textArg?.let { binding.content.setText(it) }
 
-        val viewModel: PostViewModel by viewModels()
-        val text1 = activity?.intent?.getStringExtra(Intent.EXTRA_TEXT)
-        binding.root.content.setText(text1)
 
-        binding.root.save.setOnClickListener {
-            val text = binding.root.content.text.toString()
-            if (text.isBlank()) {
-                activity?.setResult(RESULT_CANCELED)
-            } else {
-                val intent = Intent().apply { putExtra(Intent.EXTRA_TEXT, text) }
-                activity?.setResult(RESULT_OK, intent)
+        val viewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
+        binding.save.setOnClickListener {
+            val text = binding.content.text.toString()
+            if (text.isNotBlank()) {
+                viewModel.changeContent(text)
+                viewModel.save()
             }
             findNavController().navigateUp()
         }
-        binding.root.repealEdit.setOnClickListener {
+        binding.repealEdit.setOnClickListener {
             viewModel.repealEdit()
-            activity?.setResult(RESULT_OK, activity?.intent)
+//            activity?.setResult(RESULT_OK, activity?.intent)
             findNavController().navigateUp()
         }
 

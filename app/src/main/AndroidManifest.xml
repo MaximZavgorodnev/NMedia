@@ -12,15 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NMedia">
         <activity
-            android:name=".EditPostFragment"
+            android:name=".AppActivity"
             android:windowSoftInputMode="adjustResize"
-            android:exported="false" />
-        <activity
-            android:name=".FeedFragment"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plan"/>
             </intent-filter>
         </activity>
     </application>
@@ -32,3 +34,4 @@
     </queries>
 
 </manifest>
+

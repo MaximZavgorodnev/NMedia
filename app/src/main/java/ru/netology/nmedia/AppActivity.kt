@@ -7,12 +7,12 @@ import androidx.navigation.findNavController
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_INDEFINITE
 import com.google.android.material.snackbar.Snackbar
 import ru.netology.nmedia.EditPostFragment.Companion.textArg
-import ru.netology.nmedia.databinding.ActivityAppBinding
+import ru.netology.nmedia.databinding.AppActivityBinding
 
-class ActivityApp : AppCompatActivity() {
+class AppActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityAppBinding.inflate(layoutInflater)
+        val binding = AppActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         intent?.let {
@@ -22,7 +22,8 @@ class ActivityApp : AppCompatActivity() {
 
             val text = it.getStringExtra(Intent.EXTRA_TEXT)
             if (text.isNullOrBlank()){
-                Snackbar.make(binding.root, R.string.error_empty_content, LENGTH_INDEFINITE).setAction(android.R.string.ok){
+                Snackbar.make(binding.root, R.string.error_empty_content, LENGTH_INDEFINITE)
+                    .setAction(android.R.string.ok) {
                     finish()
                 } .show()
                 return@let

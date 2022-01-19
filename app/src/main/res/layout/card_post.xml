@@ -95,6 +95,8 @@
         android:layout_marginTop="@dimen/common_spacin"
         app:constraint_referenced_ids="video" />
 
+
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/content"
         android:layout_width="match_parent"
