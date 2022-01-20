@@ -61,8 +61,6 @@ class PostRepositoryFileImpl(val context: Context) : PostRepository {
         posts = posts.filter { it.id != id }
         data.value = posts
         sync()
-
-
     }
 
     override fun save(post: Post) {
@@ -75,10 +73,6 @@ class PostRepositoryFileImpl(val context: Context) : PostRepository {
         sync()
     }
 
-    override fun videoByID(post: Post): Boolean {
-        val newPost = posts.first {  it.id == post.id  }
-        return newPost.video != null
-    }
 
     private fun sync() {
         context.openFileOutput(filename, Context.MODE_PRIVATE).bufferedWriter().use {

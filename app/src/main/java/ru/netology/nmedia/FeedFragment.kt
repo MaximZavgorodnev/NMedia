@@ -1,21 +1,15 @@
 package ru.netology.nmedia
 
 import android.content.Intent
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.activity.result.launch
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.fragment_edit_post.view.*
+import ru.netology.nmedia.EditPostFragment.Companion.longArg
 import ru.netology.nmedia.EditPostFragment.Companion.textArg
-
 import ru.netology.nmedia.adapter.AdapterCallback
 import ru.netology.nmedia.adapter.PostAdapter
 import ru.netology.nmedia.databinding.FragmentFeedBinding
@@ -31,7 +25,7 @@ class FeedFragment : Fragment() {
 
         val viewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
 
-        val adapter = PostAdapter(object : AdapterCallback{
+        val adapter = PostAdapter(object : AdapterCallback {
             override fun onLike(post: Post) {
                 viewModel.likeById(post.id)
             }
@@ -42,7 +36,7 @@ class FeedFragment : Fragment() {
 
             override fun onShare(post: Post) {
                 viewModel.shareById(post.id)
-                val intent = Intent().apply{
+                val intent = Intent().apply {
                     action = Intent.ACTION_SEND
                     putExtra(Intent.EXTRA_TEXT, post.content)
                     type = "text/plane"
@@ -71,11 +65,15 @@ class FeedFragment : Fragment() {
                 }
             }
 
-            override fun videoByID(post: Post): Boolean {
-                return viewModel.videoByID(post)
+            override fun onContent(post: Post) {
+                findNavController().navigate(
+                    R.id.action_feedFragment_to_openPostFragment,
+                    Bundle().apply { longArg = post.id })
             }
         })
 
+        val id = let { arguments?.longArg }
+        id?.let { viewModel.removeById(it) }
 
         binding.container.adapter = adapter
         viewModel.data.observe(viewLifecycleOwner) { posts ->
@@ -88,7 +86,9 @@ class FeedFragment : Fragment() {
         }
         viewModel.edited.observe(viewLifecycleOwner) {
             if (it.id != 0L) {
-                findNavController().navigate(R.id.action_feedFragment_to_editPostFragment, Bundle().apply { textArg = it.content })
+                findNavController().navigate(
+                    R.id.action_feedFragment_to_editPostFragment,
+                    Bundle().apply { textArg = it.content })
             }
         }
 
@@ -96,11 +96,11 @@ class FeedFragment : Fragment() {
             findNavController().navigate(R.id.action_feedFragment_to_editPostFragment)
         }
 
-//        binding.container.content.setOnClickListener {
-//            findNavController().navigate(R.id.action_feedFragment_to_openPostFragment)
-//        }
+
         return binding.root
     }
+}
+
 
 
 
@@ -139,4 +139,3 @@ class FeedFragment : Fragment() {
 
 
 
-}

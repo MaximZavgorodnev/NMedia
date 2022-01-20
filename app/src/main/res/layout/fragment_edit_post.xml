@@ -17,7 +17,7 @@
         android:hint="@string/post_text"
         android:importantForAutofill="no"
         android:inputType="textMultiLine"
-        android:maxLines="6"
+        android:maxLines="22"
         android:padding="@dimen/common_spacin" />
 
     <com.google.android.material.bottomappbar.BottomAppBar

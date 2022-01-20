@@ -22,7 +22,7 @@ interface AdapterCallback {
     fun onRemove(post: Post)
     fun onEdit(post: Post)
     fun onPlayVideo(post: Post)
-    fun videoByID(post: Post) : Boolean
+    fun onContent(post: Post)
 }
 
 class PostAdapter(private val callback: AdapterCallback) :
@@ -86,42 +86,14 @@ class PostViewHolder(private val binding: CardPostBinding,
                 callback.onPlayVideo(post)
             }
 
-//            content.setOnClickListener { group.isVisible = true  }
+            content.setOnClickListener {
+                callback.onContent(post)
+            }
 
         }
     }
 
-    private fun visible(post: Post){
-        if (callback.videoByID(post)) {
-            binding.group.visibility = View.VISIBLE
-        }
-    }
 
-
-
-//
-//    private fun correctNumbers(numberLikes1: Int): String {
-//        val numberLikes: Double
-//        val number = when(numberLikes1) {
-//            in 1000..9_999 -> {
-//                numberLikes = numberLikes1.toDouble()
-//                val tisich = (numberLikes/1000).toInt()
-//                val des = ((numberLikes/1000)%1*10).toInt()
-//                return "$tisich.$des K"}
-//            in 10_000..999_999 ->{
-//                numberLikes = numberLikes1.toDouble()
-//                val tisich = (numberLikes/1000).toInt()
-//                return "$tisich K"
-//            }
-//            in 1_000_000..9_999_999_999 ->{
-//                numberLikes = numberLikes1.toDouble()
-//                val mil = (numberLikes/1000000).toInt()
-//                val tis = ((numberLikes/1000000)%1*10).toInt()
-//                return "$mil.$tis M"}
-//            else -> "$numberLikes1"
-//        }
-//        return number
-//    }
 
 }
 

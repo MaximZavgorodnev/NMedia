@@ -21,10 +21,21 @@
         android:id="@+id/editPostFragment"
         android:name="ru.netology.nmedia.EditPostFragment"
         android:label="fragment_edit_post"
-        tools:layout="@layout/fragment_edit_post" />
+        tools:layout="@layout/fragment_edit_post" >
+        <action
+            android:id="@+id/action_editPostFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
+    </fragment>
     <fragment
         android:id="@+id/openPostFragment"
         android:name="ru.netology.nmedia.OpenPostFragment"
         android:label="OpenPostFragment"
-        tools:layout="@layout/fragment_open_post"/>
+        tools:layout="@layout/fragment_open_post">
+        <action
+            android:id="@+id/action_openPostFragment_to_editPostFragment"
+            app:destination="@id/editPostFragment" />
+        <action
+            android:id="@+id/action_openPostFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
+    </fragment>
 </navigation>

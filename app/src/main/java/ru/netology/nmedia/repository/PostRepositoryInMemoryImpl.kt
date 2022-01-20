@@ -236,9 +236,4 @@ class PostRepositoryInMemoryImpl : PostRepository {
         }
         data.value = posts
     }
-
-    override fun videoByID(post: Post): Boolean {
-        val newPost = posts.first {  it.id == post.id  }
-        return newPost.video != null
-    }
 }
