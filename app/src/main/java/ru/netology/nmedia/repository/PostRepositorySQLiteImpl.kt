@@ -18,22 +18,45 @@ class PostRepositorySQLiteImpl (
     override fun getAll(): LiveData<List<Post>> = data
 
     override fun likeById(id: Long) {
-        TODO("Not yet implemented")
+        dao.likeById(id)
+        posts = posts.map {
+            if (it.id != id) it else it.copy(likedByMe = !it.likedByMe, likes = if (it.likedByMe) it.likes - 1 else it.likes + 1)
+        }
+        data.value = posts
     }
 
     override fun watchById(id: Long) {
-        TODO("Not yet implemented")
+        dao.watchById(id)
+        posts = posts.map{
+            if (it.id != id) it else it.copy(views = it.views + 1)
+        }
+        data.value = posts
     }
 
     override fun shareById(id: Long) {
-        TODO("Not yet implemented")
+        dao.shareById(id)
+        posts = posts.map{
+            if (it.id != id) it else it.copy(reposts = it.reposts + 1)
+        }
+        data.value = posts
     }
 
     override fun removeById(id: Long) {
-        TODO("Not yet implemented")
+        dao.removeById(id)
+        posts = posts.filter { it.id != id }
+        data.value = posts
     }
 
     override fun save(post: Post) {
-        TODO("Not yet implemented")
+        val id = post.id
+        val saved = dao.save(post)
+        posts = if (id == 0L) {
+            listOf(saved) + posts
+        } else {
+            posts.map {
+                if (it.id != id) it else saved
+            }
+        }
+        data.value = posts
     }
 }

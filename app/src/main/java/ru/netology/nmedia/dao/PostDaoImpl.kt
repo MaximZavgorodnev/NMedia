@@ -1,8 +1,11 @@
 package ru.netology.nmedia.dao
 
 import android.content.ContentValues
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.net.Uri
 import ru.netology.nmedia.Post
+import ru.netology.nmedia.R
 
 class PostDaoImpl(private val db: SQLiteDatabase) : PostDao {
     companion object{
@@ -70,7 +73,14 @@ class PostDaoImpl(private val db: SQLiteDatabase) : PostDao {
     }
 
     override fun likeById(id: Long) {
-        TODO("Not yet implemented")
+        db.execSQL(
+            """
+                UPDATE posts SET 
+                    likes = likes + CASE WHEN likedByMe THEN -1 ELSE 1 END,
+                    likedByMe = CASE WHEN likedByMe THEN 0 else 1 END
+                WHERE id = ?;    
+                """.trimIndent(), arrayOf(id)
+        )
     }
 
     override fun watchById(id: Long) {
@@ -82,7 +92,7 @@ class PostDaoImpl(private val db: SQLiteDatabase) : PostDao {
     }
 
     override fun removeById(id: Long) {
-        TODO("Not yet implemented")
+        db.delete(PostColumns.TABLE, "${PostColumns.COLUMN_ID} = ?", arrayOf(id.toString()))
     }
 
     override fun save(post: Post): Post {
@@ -102,6 +112,24 @@ class PostDaoImpl(private val db: SQLiteDatabase) : PostDao {
             post.id
         }  else {
             db.insert(PostColumns.TABLE, null, values)
+        }
+        return post
+    }
+
+    private fun map(cursor: Cursor): Post {
+        with(cursor){
+            return Post(
+                id = getLong(getColumnIndexOrThrow(PostColumns.COLUMN_ID)),
+                author = getString(getColumnIndexOrThrow(PostColumns.COLUMN_AUTHOR)),
+                content = getString(getColumnIndexOrThrow(PostColumns.COLUMN_CONTENT)),
+                published = getString(getColumnIndexOrThrow(PostColumns.COLUMN_PUBLISHED)),
+                likedByMe = getInt(getColumnIndexOrThrow(PostColumns.COLUMN_LIKED_BY_ME)) !=0,
+                likes = getInt(getColumnIndexOrThrow(PostColumns.COLUMN_LIKES)),
+                avatar = getInt(getColumnIndexOrThrow(PostColumns.COLUMN_AVATAR)),
+                views = getInt(getColumnIndexOrThrow(PostColumns.COLUMN_VIEWS)),
+                reposts = getInt(getColumnIndexOrThrow(PostColumns.COLUMN_REPOSTS)),
+                video = Uri.parse(getString(getColumnIndexOrThrow(PostColumns.COLUMN_VIDEO)))
+            )
         }
     }
 }
