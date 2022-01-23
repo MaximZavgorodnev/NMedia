@@ -29,10 +29,11 @@ class PostViewModel(application: Application): AndroidViewModel(application) {
 
 //    private val repository: PostRepository = PostRepositoryFileImpl(application)
     private val repository: PostRepository = PostRepositorySQLiteImpl(
-        AppDb.getInstance(application).postDao
+        AppDb.getInstance(application).postDao, context = application
     )
     val data = repository.getAll()
     val edited = MutableLiveData(empty)
+    var roughCopy = repository.getRoughCopy()
 
     fun save() {
         edited.value?.let {
@@ -63,4 +64,5 @@ class PostViewModel(application: Application): AndroidViewModel(application) {
     fun watchById(id: Long) = repository.watchById(id)
     fun shareById(id: Long) = repository.shareById(id)
     fun removeById(id: Long) = repository.removeById(id)
+    fun saveRoughCopy(text: String): String = repository.saveRoughCopy(text)
 }

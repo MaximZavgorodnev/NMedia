@@ -10,4 +10,6 @@ interface PostRepository {
     fun shareById(id: Long)
     fun removeById(id: Long)
     fun save(post: Post)
+    fun saveRoughCopy(text: String): String
+    fun getRoughCopy(): String
 }

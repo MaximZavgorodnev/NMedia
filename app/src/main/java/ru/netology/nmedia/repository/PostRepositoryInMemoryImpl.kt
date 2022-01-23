@@ -237,4 +237,12 @@ class PostRepositoryInMemoryImpl : PostRepository {
         }
         data.value = posts
     }
+
+    override fun saveRoughCopy(text: String): String {
+        TODO("Not yet implemented")
+    }
+
+    override fun getRoughCopy(): String {
+        TODO("Not yet implemented")
+    }
 }

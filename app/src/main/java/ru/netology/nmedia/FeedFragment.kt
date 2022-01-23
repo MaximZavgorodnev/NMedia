@@ -26,7 +26,6 @@ class FeedFragment : Fragment() {
 
         val viewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
 
-        //ownerProducer = ::requireParentFragment
         val adapter = PostAdapter(object : AdapterCallback {
             override fun onLike(post: Post) {
                 viewModel.likeById(post.id)
@@ -95,7 +94,11 @@ class FeedFragment : Fragment() {
         }
 
         binding.add.setOnClickListener {
-            findNavController().navigate(R.id.action_feedFragment_to_editPostFragment)
+//            if (viewModel.roughCopy.isEmpty()) {
+//                findNavController().navigate(R.id.action_feedFragment_to_editPostFragment,
+//                    Bundle().apply { textArg = viewModel.roughCopy })
+//            } else
+                findNavController().navigate(R.id.action_feedFragment_to_editPostFragment)
         }
 
 
