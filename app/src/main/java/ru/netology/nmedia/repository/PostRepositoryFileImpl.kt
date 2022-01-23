@@ -73,7 +73,7 @@ class PostRepositoryFileImpl(val context: Context) : PostRepository {
         sync()
     }
 
-    override fun saveRoughCopy(text: String): String {
+    override fun saveRoughCopy(text: String){
         TODO("Not yet implemented")
     }
 

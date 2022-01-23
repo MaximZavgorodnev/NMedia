@@ -94,11 +94,13 @@ class FeedFragment : Fragment() {
         }
 
         binding.add.setOnClickListener {
-//            if (viewModel.roughCopy.isEmpty()) {
-//                findNavController().navigate(R.id.action_feedFragment_to_editPostFragment,
-//                    Bundle().apply { textArg = viewModel.roughCopy })
+            val text = viewModel.roughCopy()
+//            if (text != "") {
+
+                findNavController().navigate(R.id.action_feedFragment_to_editPostFragment,
+                    Bundle().apply { textArg = text })
 //            } else
-                findNavController().navigate(R.id.action_feedFragment_to_editPostFragment)
+//                findNavController().navigate(R.id.action_feedFragment_to_editPostFragment)
         }
 
 

@@ -82,6 +82,8 @@ class PostRepositorySQLiteImpl (
                 if (it.id != id) it else saved
             }
         }
+        roughCopy = ""
+        sync()
         data.value = posts
     }
 
@@ -91,11 +93,17 @@ class PostRepositorySQLiteImpl (
         }
     }
 
-    override fun saveRoughCopy(text: String): String {
+    override fun saveRoughCopy(text: String) {
         roughCopy = text
-        return roughCopy
+        sync()
     }
 
-    override fun getRoughCopy(): String = roughCopy
+    override fun getRoughCopy(): String {
+        context.openFileInput(fileName).bufferedReader().use {
+            roughCopy = gson.fromJson(it, type)
+        }
+        sync()
+        return roughCopy
+    }
 
 }

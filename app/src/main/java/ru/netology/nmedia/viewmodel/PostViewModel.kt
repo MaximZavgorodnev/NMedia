@@ -33,7 +33,11 @@ class PostViewModel(application: Application): AndroidViewModel(application) {
     )
     val data = repository.getAll()
     val edited = MutableLiveData(empty)
-    var roughCopy = repository.getRoughCopy()
+
+
+    fun roughCopy(): String{
+        return repository.getRoughCopy()
+    }
 
     fun save() {
         edited.value?.let {
@@ -64,5 +68,5 @@ class PostViewModel(application: Application): AndroidViewModel(application) {
     fun watchById(id: Long) = repository.watchById(id)
     fun shareById(id: Long) = repository.shareById(id)
     fun removeById(id: Long) = repository.removeById(id)
-    fun saveRoughCopy(text: String): String = repository.saveRoughCopy(text)
+    fun saveRoughCopy(text: String) = repository.saveRoughCopy(text)
 }
