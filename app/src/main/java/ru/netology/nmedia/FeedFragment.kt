@@ -1,6 +1,7 @@
 package ru.netology.nmedia
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,7 @@ class FeedFragment : Fragment() {
 
         val viewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
 
+        //ownerProducer = ::requireParentFragment
         val adapter = PostAdapter(object : AdapterCallback {
             override fun onLike(post: Post) {
                 viewModel.likeById(post.id)
@@ -60,7 +62,7 @@ class FeedFragment : Fragment() {
             override fun onPlayVideo(post: Post) {
                 if (post.video != null) {
                     val intent = Intent(Intent.ACTION_VIEW)
-                    intent.data = post.video
+                    intent.data = Uri.parse(post.video)
                     startActivity(intent)
                 }
             }

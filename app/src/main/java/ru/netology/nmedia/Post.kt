@@ -12,7 +12,7 @@ data class Post(
     val avatar: Int,
     val views: Int,
     val reposts: Int,
-    val video: Uri?
+    val video: String?
 ) {
 
 }

@@ -5,21 +5,20 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.net.Uri
 import ru.netology.nmedia.Post
-import ru.netology.nmedia.R
 
 class PostDaoImpl(private val db: SQLiteDatabase) : PostDao {
     companion object{
         val DDL = """
         CREATE TABLE ${PostColumns.TABLE} (
             ${PostColumns.COLUMN_ID} INTEGER PRIMARY KEY AUTOINCREMENT,
-            ${PostColumns.COLUMN_AUTHOR} TEXT NOT NULL
-            ${PostColumns.COLUMN_CONTENT} TEXT NOT NULL
-            ${PostColumns.COLUMN_PUBLISHED} TEXT NOT NULL
-            ${PostColumns.COLUMN_LIKED_BY_ME} BOOLEAN NOT NULL DEFAULT 0
-            ${PostColumns.COLUMN_LIKES} INTEGER NOT NULL DEFAULT 0
-            ${PostColumns.COLUMN_AVATAR} INTEGER NOT NULL DEFAULT 0
-            ${PostColumns.COLUMN_VIEWS} INTEGER NOT NULL DEFAULT 0
-            ${PostColumns.COLUMN_REPOSTS} INTEGER NOT NULL DEFAULT 0
+            ${PostColumns.COLUMN_AUTHOR} TEXT NOT NULL,
+            ${PostColumns.COLUMN_CONTENT} TEXT NOT NULL,
+            ${PostColumns.COLUMN_PUBLISHED} TEXT NOT NULL,
+            ${PostColumns.COLUMN_LIKED_BY_ME} BOOLEAN NOT NULL DEFAULT 0,
+            ${PostColumns.COLUMN_LIKES} INTEGER NOT NULL DEFAULT 0,
+            ${PostColumns.COLUMN_AVATAR} INTEGER NOT NULL DEFAULT 0,
+            ${PostColumns.COLUMN_VIEWS} INTEGER NOT NULL DEFAULT 0,
+            ${PostColumns.COLUMN_REPOSTS} INTEGER NOT NULL DEFAULT 0,
             ${PostColumns.COLUMN_VIDEO} TEXT DEFAULT NULL
         );
         """.trimIndent()
@@ -31,7 +30,7 @@ class PostDaoImpl(private val db: SQLiteDatabase) : PostDao {
         const val COLUMN_AUTHOR = "author"
         const val COLUMN_CONTENT = "content"
         const val COLUMN_PUBLISHED = "published"
-        const val COLUMN_LIKED_BY_ME = "likedById"
+        const val COLUMN_LIKED_BY_ME = "likedByMe"
         const val COLUMN_LIKES = "likes"
         const val COLUMN_AVATAR = "avatar"
         const val COLUMN_VIEWS = "views"
@@ -64,7 +63,7 @@ class PostDaoImpl(private val db: SQLiteDatabase) : PostDao {
             null,
             null,
             "${PostColumns.COLUMN_ID} DESC"
-        ).use {
+        )?.use {
             while (it.moveToNext()) {
                 posts.add(map(it))
             }
@@ -77,18 +76,30 @@ class PostDaoImpl(private val db: SQLiteDatabase) : PostDao {
             """
                 UPDATE posts SET 
                     likes = likes + CASE WHEN likedByMe THEN -1 ELSE 1 END,
-                    likedByMe = CASE WHEN likedByMe THEN 0 else 1 END
+                    likedByMe = CASE WHEN likedByMe THEN 0 ELSE 1 END
                 WHERE id = ?;    
                 """.trimIndent(), arrayOf(id)
         )
     }
 
     override fun watchById(id: Long) {
-        TODO("Not yet implemented")
+        db.execSQL(
+            """
+                UPDATE posts SET 
+                    reposts = reposts + 1
+                WHERE id = ?;    
+                """.trimIndent(), arrayOf(id)
+        )
     }
 
     override fun shareById(id: Long) {
-        TODO("Not yet implemented")
+        db.execSQL(
+            """
+                UPDATE posts SET 
+                    views = views + 1
+                WHERE id = ?;    
+                """.trimIndent(), arrayOf(id)
+        )
     }
 
     override fun removeById(id: Long) {
@@ -98,9 +109,9 @@ class PostDaoImpl(private val db: SQLiteDatabase) : PostDao {
     override fun save(post: Post): Post {
         val values = ContentValues().apply {
             // TODO: remove
-            put(PostColumns.COLUMN_AUTHOR, "Me")
+            put(PostColumns.COLUMN_AUTHOR, "Нетологияю Университете интернет-профессийс будущего")
             put(PostColumns.COLUMN_CONTENT, post.content)
-            put(PostColumns.COLUMN_PUBLISHED, "now")
+            put(PostColumns.COLUMN_PUBLISHED, "23 января 2022 года")
         }
         val id = if (post.id != 0L) {
             db.update(
@@ -113,7 +124,18 @@ class PostDaoImpl(private val db: SQLiteDatabase) : PostDao {
         }  else {
             db.insert(PostColumns.TABLE, null, values)
         }
-        return post
+        db.query(
+            PostColumns.TABLE,
+            PostColumns.ALL_COLUMNS,
+            "${PostColumns.COLUMN_ID} = ?",
+            arrayOf(id.toString()),
+            null,
+            null,
+            null,
+        ).use {
+            it.moveToNext()
+            return map(it)
+        }
     }
 
     private fun map(cursor: Cursor): Post {
@@ -128,7 +150,7 @@ class PostDaoImpl(private val db: SQLiteDatabase) : PostDao {
                 avatar = getInt(getColumnIndexOrThrow(PostColumns.COLUMN_AVATAR)),
                 views = getInt(getColumnIndexOrThrow(PostColumns.COLUMN_VIEWS)),
                 reposts = getInt(getColumnIndexOrThrow(PostColumns.COLUMN_REPOSTS)),
-                video = Uri.parse(getString(getColumnIndexOrThrow(PostColumns.COLUMN_VIDEO)))
+                video = getString(getColumnIndexOrThrow(PostColumns.COLUMN_VIDEO))
             )
         }
     }

@@ -183,7 +183,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             avatar = R.drawable.posts_avatars_foreground,
             views = 467,
             reposts = 99,
-            video = Uri.parse("https://www.youtube.com/watch?v=WhWc3b3KhnY")),
+            video = null),
+//            Uri.parse("https://www.youtube.com/watch?v=WhWc3b3KhnY")),
         Post(
             id = nextId++,
             author = "Нетологияю Университете интернет-профессийс будущего",

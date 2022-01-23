@@ -3,6 +3,7 @@ package ru.netology.nmedia.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.Post
+import ru.netology.nmedia.R
 import ru.netology.nmedia.dao.PostDao
 
 class PostRepositorySQLiteImpl (

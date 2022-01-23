@@ -1,6 +1,7 @@
 package ru.netology.nmedia
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -55,6 +56,7 @@ class OpenPostFragment : Fragment() {
                     val chooser = Intent.createChooser(intent, R.string.chooser_share_post.toString())
                     startActivity(chooser)
                 }
+                avatar.setImageResource(R.drawable.posts_avatars_foreground)
                 group.isVisible = post.video != null
                 menu.setOnClickListener {
                     PopupMenu(it.context, it).apply {
@@ -80,7 +82,7 @@ class OpenPostFragment : Fragment() {
                 video.setOnClickListener {
                     if (post.video != null) {
                         val intent = Intent(Intent.ACTION_VIEW)
-                        intent.data = post.video
+                        intent.data = Uri.parse(post.video)
                         startActivity(intent)
                     }
                 }

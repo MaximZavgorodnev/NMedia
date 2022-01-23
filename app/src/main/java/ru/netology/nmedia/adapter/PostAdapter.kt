@@ -49,7 +49,7 @@ class PostViewHolder(private val binding: CardPostBinding,
             author.text = post.author
             published.text = post.published
             content.text = post.content
-            avatar.setImageResource(post.avatar)
+            avatar.setImageResource(R.drawable.posts_avatars_foreground)
             likes.isChecked = post.likedByMe
             likes.text = CorrectNumbers.correct(post.likes)
             likes.setOnClickListener {

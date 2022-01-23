@@ -13,16 +13,16 @@ class AppDb private constructor(db: SQLiteDatabase) {
         @Volatile
         private var instance: AppDb? = null
 
-        fun getInstance(contex: Context): AppDb{
+        fun getInstance(context: Context): AppDb{
             return instance ?: synchronized(this){
                 instance ?: AppDb(
-                    buildDatabase(contex, arrayOf(PostDaoImpl.DDL))
+                    buildDatabase(context, arrayOf(PostDaoImpl.DDL))
                 ).also { instance = it}
             }
         }
 
-        private fun buildDatabase(contex: Context, DDLs: Array<String>) = DbHelper(
-            contex, 1, "app.db", DDLs
+        private fun buildDatabase(context: Context, DDLs: Array<String>) = DbHelper(
+            context, 1, "app.db", DDLs
         ).writableDatabase
     }
 }
