@@ -44,6 +44,7 @@ class EditPostFragment : Fragment() {
         }
 
         binding.repealEdit.setOnClickListener {
+            viewModel.saveRoughCopy("")
             viewModel.repealEdit()
             findNavController().navigateUp()
         }
