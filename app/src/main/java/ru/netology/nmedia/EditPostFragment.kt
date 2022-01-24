@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -23,9 +24,15 @@ class EditPostFragment : Fragment() {
     ): View {
         val binding = FragmentEditPostBinding.inflate(inflater, container, false)
         arguments?.textArg?.let { binding.content.setText(it) }
-
-
         val viewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
+
+        requireActivity().onBackPressedDispatcher.addCallback(this){
+            val text = binding.content.text.toString()
+            viewModel.saveRoughCopy(text)
+            findNavController().navigateUp()
+        }
+
+
 
         binding.save.setOnClickListener {
             val text = binding.content.text.toString()
@@ -37,13 +44,15 @@ class EditPostFragment : Fragment() {
         }
 
         binding.repealEdit.setOnClickListener {
-            val text = binding.content.text.toString()
             viewModel.repealEdit()
-            viewModel.saveRoughCopy(text)
             findNavController().navigateUp()
         }
+
         return binding.root
+
+
     }
+
 
 
     companion object {
