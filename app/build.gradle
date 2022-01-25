@@ -2,10 +2,11 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-android-extensions'
-//    id 'kotlin-kapt'
+    id 'kotlin-kapt'
+//    id 'kotlin-parcelize'
 
 }
-apply plugin: 'kotlin-android'
+//apply plugin: 'kotlin-android'
 //apply plugin: 'kotlin-kapt'
 
 android {
@@ -17,8 +18,6 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
-//        def activity_version = "1.2.1"
-
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -48,6 +47,7 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.room:room-common:2.4.1'
     def nav_version = "2.3.4"
     def room_ver = "2.3.0"
     implementation"androidx.navigation:navigation-fragment-ktx:$nav_version"
@@ -73,8 +73,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation "androidx.core:core-ktx:*"
-//    implementation "androidx.room:room-runtime:$room_ver"
-//    kapt "androidx.room:room-compiler:$room_ver"
+    implementation "androidx.room:room-runtime:$room_ver"
+    kapt "androidx.room:room-compiler:$room_ver"
+
 
 //    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }

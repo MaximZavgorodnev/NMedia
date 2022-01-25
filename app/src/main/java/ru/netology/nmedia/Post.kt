@@ -1,7 +1,5 @@
 package ru.netology.nmedia
 
-import android.net.Uri
-
 data class Post(
     val id: Long,
     val author: String,
@@ -13,6 +11,4 @@ data class Post(
     val views: Int,
     val reposts: Int,
     val video: String?
-) {
-
-}
+)
