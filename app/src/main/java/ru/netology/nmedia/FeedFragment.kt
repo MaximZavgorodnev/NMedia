@@ -95,12 +95,8 @@ class FeedFragment : Fragment() {
 
         binding.add.setOnClickListener {
             val text = viewModel.roughCopy()
-//            if (text != "") {
-
                 findNavController().navigate(R.id.action_feedFragment_to_editPostFragment,
                     Bundle().apply { textArg = text })
-//            } else
-//                findNavController().navigate(R.id.action_feedFragment_to_editPostFragment)
         }
 
 
@@ -108,41 +104,6 @@ class FeedFragment : Fragment() {
     }
 }
 
-
-
-
-//            val intent = Intent().apply { putExtra(Intent.EXTRA_TEXT, it.content) }
-//            setResult(RESULT_OK, intent)
-
-//                binding.content.setText(it.content)
-//                binding.content.requestFocus()
-//            }
-//        }
-//
-//        binding.save.setOnClickListener {
-//            with (binding.content) {
-//                val content = text.toString()
-//                if (content.isNullOrBlank()) {
-//                    Toast.makeText(it.context, R.string.error_empty_content, Toast.LENGTH_LONG).show()
-//                    return@setOnClickListener
-//                }
-//                viewModel.changeContent(content)
-//                viewModel.save()
-//                setText("")
-//                clearFocus()
-//                AndroidUtils.hideKeyboard(it)
-//            }
-//            group.visibility = View.GONE
-//        }
-//
-//        binding.repealEdit.setOnClickListener {
-//            group.visibility = View.GONE
-//            with (binding.content){
-//                setText("")
-//                clearFocus()
-//                AndroidUtils.hideKeyboard(it)
-//            }
-//        }
 
 
 

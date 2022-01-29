@@ -66,8 +66,6 @@ class PostViewHolder(private val binding: CardPostBinding,
             reposts.setOnClickListener {
                 callback.onShare(post)
             }
-
-//            visible(post)
             group.isVisible = post.video != null
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {

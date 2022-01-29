@@ -8,7 +8,6 @@ import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.card_post.view.*
 import ru.netology.nmedia.databinding.FragmentEditPostBinding
 import ru.netology.nmedia.util.LongArg
 import ru.netology.nmedia.util.StringArg
@@ -44,6 +43,7 @@ class EditPostFragment : Fragment() {
         }
 
         binding.repealEdit.setOnClickListener {
+            viewModel.saveRoughCopy("")
             viewModel.repealEdit()
             findNavController().navigateUp()
         }

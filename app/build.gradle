@@ -2,9 +2,13 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
+//    id 'kotlin-parcelize'
 
 }
-apply plugin: 'kotlin-android'
+//apply plugin: 'kotlin-android'
+//apply plugin: 'kotlin-kapt'
 
 android {
     compileSdk 31
@@ -15,8 +19,6 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
-//        def activity_version = "1.2.1"
-
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -46,7 +48,9 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.room:room-common:2.4.1'
     def nav_version = "2.3.4"
+    def room_ver = "2.3.0"
     implementation"androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation"androidx.navigation:navigation-ui-ktx:$nav_version"
 
@@ -70,5 +74,14 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation "androidx.core:core-ktx:*"
+    implementation "androidx.room:room-runtime:$room_ver"
+    kapt "androidx.room:room-compiler:$room_ver"
+    implementation 'com.google.firebase:firebase-messaging'
+
+    implementation platform('com.google.firebase:firebase-bom:29.0.4')
+
+
 //    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
+
+//eJodrYrKRJSpSPeyd2ypwE:APA91bEhpWLS1H-dlLVwCjE1T_viwgRDdwXtWEDDLaO9_YCqWFULLqBqqbiAX4KHr8rxBq3r8wD8WVickZxVKF9J1JwCQrZQS8e5Ip0B1NaPD7bZWMdpg4Iz5TeLKiM42j9_SA-Lkmxl

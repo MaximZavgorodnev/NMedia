@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">NMedia</string>
     <string name="nmedia">Н Медиа!!</string>
     <string name="menu_remove">Удалить</string>
@@ -11,4 +11,7 @@
     <string name="save">Сохранить</string>
     <string name="repealedit">RepealEdit</string>
     <string name="video">Video</string>
+    <string name="notification_user_liked">Пользователь %1$s лайкнул пост  %2$s\'и</string>
+    <string name="post_content">текст %1$s</string>
+    <string name="notification_user_published_post">Пользователь %1$s опубликовал новый пост:</string>
 </resources>
