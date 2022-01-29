@@ -74,7 +74,6 @@ class FCMService : FirebaseMessagingService() {
     }
 
     private fun handlePost(post: NotificPost) {
-        val text = post.content
         val notification = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.drawable.posts_avatars_foreground)
             .setContentTitle(getString(R.string.notification_user_published_post, post.userName))
@@ -84,7 +83,6 @@ class FCMService : FirebaseMessagingService() {
         NotificationManagerCompat.from(this).notify(Random.nextInt(100_00), notification)
 
     }
-//    .bigText(emailObject.getSubjectAndSnippet()))
 }
 
 enum class Action{
