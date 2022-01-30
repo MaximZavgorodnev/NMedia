@@ -28,6 +28,7 @@ class EditPostFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(this){
             val text = binding.content.text.toString()
             viewModel.saveRoughCopy(text)
+            viewModel.repealEdit()
             findNavController().navigateUp()
         }
 
